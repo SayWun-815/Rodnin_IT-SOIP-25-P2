@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KT_1
+{
+    class Car
+    {
+        private string brand;
+        private string model;
+        private int year;
+        private int speed;
+
+        public string Brand
+        {
+            get => brand;
+            set => brand = value;
+        }
+
+        public string Model
+        {
+            get => model;
+            set => model = value;
+        }
+
+        public string Year
+        {
+            get => year.ToString();
+        }
+
+        public int Speed
+        {
+            get => speed;
+            set => speed = value < 0 ? 0 : value;
+        }
+
+        public int CarYear
+        {
+            get => year;
+            set => year = value;
+        }
+
+        public Car(string brand, string model, int year, int speed)
+        {
+            Brand = brand;
+            Model = model;
+            CarYear = year;
+            Speed = speed;
+        }
+
+        public void Accelerate(int value)
+        {
+            if (value > 0)
+            {
+                Speed += value;
+            }
+        }
+
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"Марка: {Brand}");
+            Console.WriteLine($"Модель: {Model}");
+            Console.WriteLine($"Год: {CarYear}");
+            Console.WriteLine($"Скорость: {Speed} км/ч");
+            Console.WriteLine();
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Car car1 = new Car("BMW", "M5", 2022, 120);
+            Car car2 = new Car("Audi", "RS6", 2021, 90);
+            Console.WriteLine("Исходная информация");
+            car1.DisplayInfo();
+            car2.DisplayInfo();
+            car1.Speed = 150;
+            car1.Accelerate(30);
+            //car1.Speed = -50;
+            Console.WriteLine("После изменения скорости");
+            car1.DisplayInfo();
+        }
+    }
+}
