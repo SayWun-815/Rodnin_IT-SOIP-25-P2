@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:output method="text" encoding="UTF-8"/>
+
+<xsl:template match="/">
+
+<xsl:variable name="k" select="/timeTable/offices/office[name='Курская']/@code"/>
+<xsl:variable name="v" select="/timeTable/offices/office[starts-with(name,'ВДНХ')]/@code"/>
+
+<xsl:text>Курская: </xsl:text>
+<xsl:value-of select="count(//lesson[@complex=$k])"/>
+
+<xsl:text>&#10;ВДНХ: </xsl:text>
+<xsl:value-of select="count(//lesson[@complex=$v])"/>
+
+<xsl:text>&#10;В 10:00: </xsl:text>
+<xsl:value-of select="count(//lesson[time='10:00'])"/>
+
+<xsl:text>&#10;В 15:30: </xsl:text>
+<xsl:value-of select="count(//lesson[time='15:30'])"/>
+
+<xsl:text>&#10;В 17:20: </xsl:text>
+<xsl:value-of select="count(//lesson[time='17:20'])"/>
+
+<xsl:text>&#10;Первое занятие: </xsl:text>
+<xsl:value-of select="//lesson[1]/thema"/>
+<xsl:text> - </xsl:text>
+<xsl:value-of select="//lesson[1]/date"/>
+
+<xsl:text>&#10;Последнее занятие: </xsl:text>
+<xsl:value-of select="(//lesson)[last()]/thema"/>
+<xsl:text> - </xsl:text>
+<xsl:value-of select="(//lesson)[last()]/date"/>
+
+<xsl:text>&#10;По DTD: </xsl:text>
+<xsl:value-of select="count(//lesson[contains(thema,'DTD')])"/>
+
+<xsl:text>&#10;Четных на Курской: </xsl:text>
+<xsl:value-of select="count(//lesson[@complex=$k and @no mod 2=0])"/>
+
+<xsl:text>&#10;Нечетных на ВДНХ: </xsl:text>
+<xsl:value-of select="count(//lesson[@complex=$v and @no mod 2=1])"/>
+
+</xsl:template>
+</xsl:stylesheet>
