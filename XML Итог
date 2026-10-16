@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+
+    <xsl:template match="/">
+        <items>
+            <xsl:apply-templates select="comments/comment" mode="flatten">
+                <xsl:with-param name="parentId" select="'0'"/>
+            </xsl:apply-templates>
+        </items>
+    </xsl:template>
+
+    <xsl:template match="comment" mode="flatten">
+        <xsl:param name="parentId"/>
+        
+        <xsl:variable name="currentId" select="generate-id()"/>
+        
+        <item>
+            <xsl:attribute name="id">
+                <xsl:value-of select="count(preceding::comment) + count(ancestor-or-self::comment)"/>
+            </xsl:attribute>
+            <xsl:attribute name="parentid">
+                <xsl:value-of select="$parentId"/>
+            </xsl:attribute>
+            <xsl:attribute name="author">
+                <xsl:value-of select="@author"/>
+            </xsl:attribute>
+            <xsl:value-of select="text()"/>
+        </item>
+        
+        <xsl:apply-templates select="comment" mode="flatten">
+            <xsl:with-param name="parentId" select="$currentId"/>
+        </xsl:apply-templates>
+    </xsl:template>
+</xsl:stylesheet>
