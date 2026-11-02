@@ -1,0 +1,76 @@
+using System;
+
+// Часть 1
+class Box<T>
+{
+    private T _item;
+
+    public void Put(T item)
+    {
+        _item = item;
+    }
+
+    public T Get()
+    {
+        return _item;
+    }
+}
+
+// Часть 2
+static class Utils
+{
+    public static void Swap<T>(ref T a, ref T b)
+    {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+}
+
+// Часть 3
+class Pair<T1, T2>
+{
+    public T1 First { get; set; }
+    public T2 Second { get; set; }
+
+    public Pair(T1 first, T2 second)
+    {
+        First = first;
+        Second = second;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Часть 1
+        Console.WriteLine("Часть 1");
+        Box<int> intBox = new Box<int>();
+        intBox.Put(42);
+
+        Box<string> stringBox = new Box<string>();
+        stringBox.Put("qqqqq");
+
+        Console.WriteLine($"Box<int>: {intBox.Get()}");
+        Console.WriteLine($"Box<string>: {stringBox.Get()}");
+
+        // Часть 2
+        Console.WriteLine("Часть 2");
+        int x = 10, y = 20;
+        Console.WriteLine($"До x = {x}, y = {y}");
+        Utils.Swap(ref x, ref y);
+        Console.WriteLine($"После x = {x}, y = {y}");
+
+        string s1 = "qqq", s2 = "www";
+        Console.WriteLine($"До s1 = {s1}, s2 = {s2}");
+        Utils.Swap(ref s1, ref s2);
+        Console.WriteLine($"После s1 = {s1}, s2 = {s2}");
+
+        // Часть 3
+        Console.WriteLine("Часть 3");
+        Pair<string, int> pair = new Pair<string, int>("rgfvbf", 25);
+        Console.WriteLine($"Первое {pair.First}");
+        Console.WriteLine($"Второе {pair.Second}");
+    }
+}
